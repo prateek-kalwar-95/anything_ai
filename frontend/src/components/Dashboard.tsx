@@ -35,6 +35,7 @@ export default function Dashboard() {
       const res = await api.get('/auth/me');
       setUser(res.data);
     } catch (error) {
+      localStorage.removeItem('token');
       navigate('/');
     }
   };
