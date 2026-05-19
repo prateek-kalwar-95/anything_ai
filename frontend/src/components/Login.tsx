@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +12,12 @@ export default function Login() {
   const [role, setRole] = useState('user');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,8 +35,16 @@ export default function Login() {
         navigate('/dashboard');
       } else {
         await api.post('/auth/register', { email, password, role });
-        toast.success('Registered successfully! Please log in.');
-        setIsLogin(true);
+
+        const formData = new URLSearchParams();
+        formData.append('username', email);
+        formData.append('password', password);
+        const loginRes = await api.post('/auth/login', formData, {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+        localStorage.setItem('token', loginRes.data.access_token);
+        toast.success('Account created! Welcome to Primetrade AI.');
+        navigate('/dashboard');
       }
     } catch (error: any) {
       toast.error(error.response?.data?.detail || 'An error occurred');
