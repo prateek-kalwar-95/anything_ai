@@ -20,7 +20,7 @@ export default function Login() {
         const formData = new URLSearchParams();
         formData.append('username', email);
         formData.append('password', password);
-        
+
         const res = await api.post('/auth/login', formData, {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         });
@@ -39,13 +39,13 @@ export default function Login() {
 
   return (
     <div className="auth-wrapper">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="glass-panel auth-card"
       >
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -54,22 +54,22 @@ export default function Login() {
           Primetrade AI
         </motion.h2>
         <form onSubmit={handleSubmit}>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
             className="input-group"
           >
             <label className="input-label">Email</label>
-            <input 
-              type="email" 
-              className="input-field" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
+            <input
+              type="email"
+              className="input-field"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </motion.div>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
@@ -77,12 +77,12 @@ export default function Login() {
           >
             <label className="input-label">Password</label>
             <div style={{ position: 'relative' }}>
-              <input 
-                type={showPassword ? "text" : "password"} 
-                className="input-field" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                required 
+              <input
+                type={showPassword ? "text" : "password"}
+                className="input-field"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
                 style={{ paddingRight: '2.5rem' }}
               />
               <button
@@ -109,7 +109,7 @@ export default function Login() {
           </motion.div>
           <AnimatePresence>
             {!isLogin && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
                 animate={{ opacity: 1, height: 'auto', overflow: 'visible' }}
                 exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
@@ -157,13 +157,13 @@ export default function Login() {
               </motion.div>
             )}
           </AnimatePresence>
-          <motion.button 
+          <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
             whileTap={{ scale: 0.98 }}
-            type="submit" 
-            className="btn btn-primary" 
+            type="submit"
+            className="btn btn-primary"
             style={{ width: '100%', marginBottom: '1.5rem', marginTop: '0.5rem' }}
           >
             {isLogin ? 'Sign In' : 'Create Account'}
