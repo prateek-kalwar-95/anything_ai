@@ -1,6 +1,13 @@
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 
+class UserMin(BaseModel):
+    id: int
+    email: EmailStr
+
+    class Config:
+        from_attributes = True
+
 class TaskBase(BaseModel):
     title: str
     description: Optional[str] = None
@@ -15,6 +22,7 @@ class TaskUpdate(TaskBase):
 class Task(TaskBase):
     id: int
     owner_id: int
+    owner: Optional[UserMin] = None
 
     class Config:
         from_attributes = True

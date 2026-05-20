@@ -9,6 +9,10 @@ interface Task {
   title: string;
   description: string;
   owner_id: number;
+  owner?: {
+    id: number;
+    email: string;
+  };
 }
 
 interface User {
@@ -153,8 +157,23 @@ export default function Dashboard() {
           <div className="task-grid">
             {tasks.map(task => (
               <div key={task.id} className="task-card">
-                <h4 className="task-title">{task.title}</h4>
-                <p className="task-desc">{task.description || 'No description'}</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <h4 className="task-title" style={{ flex: 1, margin: 0 }}>{task.title}</h4>
+                  {task.owner && (
+                    <span style={{ 
+                      fontSize: '0.7rem', 
+                      background: 'rgba(139, 92, 246, 0.1)', 
+                      color: 'var(--primary)', 
+                      padding: '2px 8px', 
+                      borderRadius: '12px',
+                      border: '1px solid rgba(139, 92, 246, 0.2)',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      {task.owner.email}
+                    </span>
+                  )}
+                </div>
+                <p className="task-desc" style={{ marginTop: '0.75rem' }}>{task.description || 'No description'}</p>
                 <div className="task-actions">
                   <button onClick={() => handleEdit(task)} className="btn btn-sm" style={{ background: 'rgba(79, 70, 229, 0.1)', color: 'var(--primary)' }}>
                     <Edit size={14} />
