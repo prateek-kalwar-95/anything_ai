@@ -2,6 +2,10 @@
 
 This repository contains the solution for the Primetrade Backend Developer Internship task. It includes a scalable REST API built with FastAPI and a React frontend to demonstrate the functionality.
 
+**Live Demo**: [Deployed Link](https://anything-ai-eosin.vercel.app)
+
+**Swagger API Docs**: [Swagger UI](https://anythingai-production.up.railway.app/docs)
+
 ## Tech Stack
 - **Backend**: FastAPI, SQLAlchemy, SQLite (Development), Passlib, python-jose, Pydantic
 - **Frontend**: React (Vite), React Router, Axios, Lucide React (Vanilla CSS for styling)
