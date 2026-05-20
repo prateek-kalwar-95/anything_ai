@@ -17,8 +17,8 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configure CORS — FRONTEND_URL env var is set on Railway to the Vercel deployment URL
-_frontend_url = os.getenv("FRONTEND_URL", "")
+# CORS: localhost for dev; FRONTEND_URL for production; *.vercel.app for Vercel deploys/previews
+_frontend_url = os.getenv("FRONTEND_URL", "").strip().rstrip("/")
 origins = [
     "http://localhost",
     "http://localhost:5173",
@@ -30,6 +30,7 @@ if _frontend_url:
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

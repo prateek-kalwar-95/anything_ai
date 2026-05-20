@@ -47,7 +47,16 @@ export default function Login() {
         navigate('/dashboard');
       }
     } catch (error: any) {
-      toast.error(error.response?.data?.detail || 'An error occurred');
+      const detail = error.response?.data?.detail;
+      let message = 'An error occurred';
+      if (Array.isArray(detail)) {
+        message = detail.map((d: { msg?: string }) => d.msg).filter(Boolean).join(', ') || message;
+      } else if (typeof detail === 'string') {
+        message = detail;
+      } else if (!error.response) {
+        message = 'Cannot reach API. Check VITE_API_URL and backend CORS (FRONTEND_URL on Render).';
+      }
+      toast.error(message);
     }
   };
 
